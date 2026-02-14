@@ -6,13 +6,86 @@
   box-sizing: border-box;
 }
 
+/* =============================================
+   CSS VARIABLES — DARK THEME (default)
+   ============================================= */
+:root,
+[data-theme="dark"] {
+  --bg: #000;
+  --color: white;
+  --nav-color: white;
+  --nav-hover: #ffc400;
+  --sidebar-bg: #0a0a0a;
+  --sidebar-color: white;
+  --sidebar-hover: #ffc400;
+  --sidebar-divider: rgba(255, 255, 255, 0.1);
+  --sidebar-overlay: rgba(0, 0, 0, 0.7);
+  --toggle-track: #232324;
+  --toggle-track-checked: #aab4be;
+  --toggle-thumb: #ffffff;
+  --toggle-thumb-checked: #000409;
+  --description-color: rgba(255, 255, 255, 0.75);
+  --cta-bg: white;
+  --cta-color: #000;
+  --cta-shadow: rgba(255, 255, 255, 0.2);
+  --lamp-cable: linear-gradient(to bottom, #aaa, #fff);
+  --lamp-hook-border: #fff;
+  --lamp-top-border: #fff;
+  --lamp-bulb-end-bg: radial-gradient(circle at center, #fff 0%, #f0f0f0 70%, #ccc 100%);
+  --lamp-bulb-core-bg: radial-gradient(circle at top, #fff 0%, #ffeebb 70%, #ffd700 100%);
+  --lamp-light-color: rgba(255, 255, 200, 0.7);
+  --lamp-light-mid: rgba(255, 255, 200, 0.3);
+  --lamp-bulb-glow: 0 0 20px rgba(255, 255, 200, 0.8);
+  --lamp-bulb-core-glow: 0 0 35px rgba(255, 255, 200, 0.8);
+  --menu-btn-color: white;
+  --logo-color: inherit;
+}
+
+/* =============================================
+   CSS VARIABLES — LIGHT THEME
+   ============================================= */
+[data-theme="light"] {
+  --bg: #ffffff;
+  --color: #000000;
+  --nav-color: #000000;
+  --nav-hover: #ffa500;
+  --sidebar-bg: #f5f5f5;
+  --sidebar-color: #000000;
+  --sidebar-hover: #ffa500;
+  --sidebar-divider: rgba(0, 0, 0, 0.12);
+  --sidebar-overlay: rgba(0, 0, 0, 0.35);
+  --toggle-track: #cccccc;
+  --toggle-track-checked: #aab4be;
+  --toggle-thumb: #ffffff;
+  --toggle-thumb-checked: #000409;
+  --description-color: rgba(0, 0, 0, 0.6);
+  --cta-bg: #000000;
+  --cta-color: #fff;
+  --cta-shadow: rgba(0, 0, 0, 0.15);
+  --lamp-cable: linear-gradient(to bottom, #999, #000000);
+  --lamp-hook-border: #000000;
+  --lamp-top-border: #000000;
+  --lamp-bulb-end-bg: radial-gradient(circle at center, #e0e0e0 0%, #c8c8c8 70%, #aaa 100%);
+  --lamp-bulb-core-bg: radial-gradient(circle at top, #d5d5d5 0%, #bbb 70%, #999 100%);
+  --lamp-light-color: rgba(0, 0, 0, 0);
+  --lamp-light-mid: rgba(0, 0, 0, 0);
+  --lamp-bulb-glow: none;
+  --lamp-bulb-core-glow: none;
+  --menu-btn-color: #000000;
+  --logo-color: inherit;
+}
+
+/* =============================================
+   BASE STYLES (use variables)
+   ============================================= */
 .hero-container {
   min-height: 100vh;
-  background: #000;
-  color: white;
+  background: var(--bg);
+  color: var(--color);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   overflow: hidden;
   position: relative;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
 /* Header Styles */
@@ -23,27 +96,27 @@
   padding: 2rem 3rem;
   position: relative;
   z-index: 100;
-  min-height: 34px; 
+  min-height: 34px;
 }
 
 .header-left {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  height: 34px; 
+  height: 34px;
 }
 
 .menu-btn {
   background: none;
   border: none;
-  color: white;
+  color: var(--menu-btn-color);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, color 0.4s ease;
 }
 
 .menu-btn:hover {
@@ -55,11 +128,13 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: var(--color);
+  transition: color 0.4s ease;
 }
 
 .logo-bars {
   display: flex;
-  align-items: center; 
+  align-items: center;
   gap: 3px;
   height: 24px;
 }
@@ -99,17 +174,18 @@
   font-weight: 700;
   font-size: 1rem;
 }
-.nav { 
+
+.nav {
   display: flex;
-  gap: 3rem; 
+  gap: 3rem;
   position: absolute;
   left: 50%;
-  top: 3rem; 
+  top: 3rem;
   transform: none;
 }
 
 .nav a {
-  color: white;
+  color: var(--nav-color);
   text-decoration: none;
   font-size: 0.875rem;
   font-weight: 600;
@@ -119,10 +195,9 @@
 }
 
 .nav a:hover {
-  color: #ffc400;            
-  transform: translateY(-5px); 
+  color: var(--nav-hover);
+  transform: translateY(-5px);
 }
-
 
 /* Sidebar Menu */
 .sidebar {
@@ -131,9 +206,9 @@
   left: -350px;
   width: 350px;
   height: 100vh;
-  background: #0a0a0a;
+  background: var(--sidebar-bg);
   z-index: 1000;
-  transition: left 0.4s ease;
+  transition: left 0.4s ease, background 0.4s ease;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -147,11 +222,11 @@
   right: 1.5rem;
   background: none;
   border: none;
-  color: white;
+  color: var(--sidebar-color);
   font-size: 2rem;
   cursor: pointer;
   padding: 0.5rem;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, color 0.4s ease;
 }
 
 .sidebar-close:hover {
@@ -169,6 +244,7 @@
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 3rem;
+  color: var(--sidebar-color);
 }
 
 .sidebar-nav {
@@ -178,23 +254,24 @@
 }
 
 .sidebar-nav a {
-  color: white;
+  color: var(--sidebar-color);
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, color 0.4s ease;
   padding: 0.5rem 0;
 }
 
 .sidebar-nav a:hover {
-  color: #ffc400;
+  color: var(--sidebar-hover);
   padding-left: 0.5rem;
 }
 
 .sidebar-divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--sidebar-divider);
   margin: 1rem 0;
+  transition: background 0.4s ease;
 }
 
 .sidebar-overlay {
@@ -203,9 +280,10 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--sidebar-overlay);
   z-index: 999;
   animation: fadeIn 0.3s ease;
+  transition: background 0.4s ease;
 }
 
 @keyframes fadeIn {
@@ -213,7 +291,12 @@
   to { opacity: 1; }
 }
 
-/* MUI Switch Style */
+/* =============================================
+   THEME TOGGLE SWITCH
+   Sun = light theme  |  Moon = dark theme
+   Unchecked = light
+   Checked   = dark 
+   ============================================= */
 .theme-toggle {
   position: relative;
   display: inline-block;
@@ -228,33 +311,35 @@
   height: 0;
 }
 
+/* Track */
 .toggle-slider {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #232324; 
+  background-color: var(--toggle-track);
   border-radius: 17px;
-  transition: 0.3s;
+  transition: background-color 0.3s;
   padding: 7px;
 }
 
+/* Thumb */
 .toggle-slider .toggle-icon {
   position: absolute;
   width: 32px;
   height: 32px;
   left: 1px;
   top: 1px;
-  background-color: #ffffff;
+  background-color: var(--toggle-thumb);
   border-radius: 50%;
-  transition: 0.3s;
+  transition: transform 0.3s, background-color 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Sun icon (when off) */
+/* Sun icon — shown when light theme (toggle unchecked) */
 .toggle-slider .toggle-icon::before {
   content: '';
   position: absolute;
@@ -265,22 +350,20 @@
   background-position: center;
 }
 
-/* When enabled */
+/* Moon icon — shown when dark theme (toggle checked) */
 .toggle-input:checked + .toggle-slider {
-  background-color: #aab4be;
+  background-color: var(--toggle-track-checked);
 }
 
 .toggle-input:checked + .toggle-slider .toggle-icon {
-  transform: translateX(22px);
-  background-color: #000409;
+  transform: translateX(28px);
+  background-color: var(--toggle-thumb-checked);
 }
 
-/* Star/moon icon (when enabled) */
 .toggle-input:checked + .toggle-slider .toggle-icon::before {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="%23fff" d="M4.2 2.5l-.7 1.8-1.8.7 1.8.7.7 1.8.6-1.8L6.7 5l-1.9-.7-.6-1.8zm15 8.3a6.7 6.7 0 11-6.6-6.6 5.8 5.8 0 006.6 6.6z"/></svg>');
 }
 
-/* Hover effect */
 .theme-toggle:hover .toggle-slider {
   opacity: 0.9;
 }
@@ -305,10 +388,9 @@
   padding-top: 0;
 }
 
-/* Main lamp container */
 .lamp {
   position: relative;
-  width: 220px;   
+  width: 220px;
   height: 700px;
   display: flex;
   flex-direction: column;
@@ -318,88 +400,83 @@
 
 .lamp-cable {
   position: absolute;
-  top: -260px; 
+  top: -260px;
   left: 50%;
   transform: translateX(-50%);
   width: 4px;
   height: 260px;
-  background: linear-gradient(to bottom, #aaa, #fff);
+  background: var(--lamp-cable);
   z-index: 5;
+  transition: background 0.4s ease;
 }
 
 .lamp-hook {
   width: 70px;
   height: 100px;
-  border: 10px solid #fff;
+  border: 10px solid var(--lamp-hook-border);
   border-bottom: none;
   border-radius: 80px 80px 0 0;
   z-index: 5;
+  transition: border-color 0.4s ease;
 }
 
 .lamp-top {
   width: 200px;
-  height: 100px;  
-  border: 10px solid #fff;
+  height: 100px;
+  border: 10px solid var(--lamp-top-border);
   border-radius: 260px 260px 0 0;
   margin-top: -10px;
   z-index: 5;
+  transition: border-color 0.4s ease;
 }
 
 .lamp-bulb-end {
-  position: absolute;         
-  top: 174px;                
-  left: 50%;                  
+  position: absolute;
+  top: 174px;
+  left: 50%;
   transform: translateX(-50%);
-  
-  width: 200px;              
-  height: 30px;             
-  background: radial-gradient(circle at center, #fff 0%, #f0f0f0 70%, #ccc 100%);
-  border-radius: 50% / 50%;  
+  width: 200px;
+  height: 30px;
+  background: var(--lamp-bulb-end-bg);
+  border-radius: 50% / 50%;
   z-index: 6;
-  box-shadow: 0 0 20px rgba(255, 255, 200, 0.8);
+  box-shadow: var(--lamp-bulb-glow, none);
+  transition: background 0.4s ease;
 }
 
 .lamp-bulb-core {
   position: absolute;
-  top: 174px;               
+  top: 174px;
   left: 50%;
   transform: translateX(-50%);
-  
-  width: 50px;              
-  height: 38px;            
-  
-  background: radial-gradient(circle at top, #fff 0%, #ffeebb 70%, #ffd700 100%);
-  border-radius: 50% / 40%; 
-  
-  box-shadow: 0 0 35px rgba(255, 255, 200, 0.8); 
-  z-index: 7;               
+  width: 50px;
+  height: 38px;
+  background: var(--lamp-bulb-core-bg);
+  border-radius: 50% / 40%;
+  box-shadow: var(--lamp-bulb-core-glow, none);
+  z-index: 7;
+  transition: background 0.4s ease;
 }
-
 
 .lamp-light {
   position: absolute;
-  top: 200px;               
+  top: 200px;
   left: 50%;
   transform: translateX(-50%);
-  
-  width: 400px;            
-  height: 500px;            
-  
+  width: 400px;
+  height: 500px;
   background: radial-gradient(
-    ellipse at top, 
-    rgba(255, 255, 200, 0.7) 0%,  
-    rgba(255, 255, 200, 0.3) 50%, 
-    rgba(255, 255, 200, 0) 90%   
+    ellipse at top,
+    var(--lamp-light-color) 0%,
+    var(--lamp-light-mid) 50%,
+    rgba(255, 255, 200, 0) 90%
   );
-  
   border-radius: 50% / 50%;
-  filter: blur(60px);       
-  z-index: 2;              
-  pointer-events: none;     
+  filter: blur(60px);
+  z-index: 2;
+  pointer-events: none;
+  transition: background 0.4s ease;
 }
-
-
-
 
 /* Text Section */
 .text-section {
@@ -413,32 +490,34 @@
 .heading {
   font-size: 5.5rem;
   font-weight: 800;
-  line-height: 1.1; 
+  line-height: 1.1;
   margin-bottom: 2rem;
-  letter-spacing: 0.01em; 
-  margin-left: 0;
+  letter-spacing: 0.01em;
+  color: var(--color);
+  transition: color 0.4s ease;
 }
 
 .description {
   font-size: 1rem;
-  line-height: 1.8; 
-  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.8;
+  color: var(--description-color);
   margin-bottom: 2.5rem;
-  max-width: 550px; 
+  max-width: 550px;
   font-weight: 400;
-  letter-spacing: 0.03em; 
+  letter-spacing: 0.03em;
+  transition: color 0.4s ease;
 }
 
 .cta-button {
-  background: white;
-  color: #000;
+  background: var(--cta-bg);
+  color: var(--cta-color);
   border: none;
-  padding: 1.1rem 5rem; 
+  padding: 1.1rem 5rem;
   font-size: 1rem;
   font-weight: 600;
   border-radius: 30px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, background 0.4s ease, color 0.4s ease;
   font-family: 'Inter', sans-serif;
   align-self: flex-start;
   width: fit-content;
@@ -447,7 +526,7 @@
 
 .cta-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 20px var(--cta-shadow);
 }
 
 .cta-button:active {
@@ -463,61 +542,60 @@
   .heading {
     font-size: 4.5rem;
   }
-  
+
   .nav {
-    gap: 2rem; 
+    gap: 2rem;
   }
-  
+
   .nav a {
     font-size: 0.8rem;
   }
 }
 
-
 @media (max-width: 968px) {
   .nav {
-    display: none !important; 
+    display: none !important;
   }
-  
+
   .header {
     padding: 1.5rem 2rem;
   }
-  
+
   .main-content {
     grid-template-columns: 1fr;
     gap: 2rem;
     padding: 2rem;
     margin-top: 0;
   }
-  
+
   .lamp-section {
     order: 1;
     padding-top: 2rem;
   }
-  
+
   .lamp {
     transform: translateY(0) scale(0.8);
   }
-  
+
   .text-section {
     order: 2;
     padding-left: 0;
     text-align: center;
     align-items: center;
   }
-  
+
   .heading {
     font-size: 3.5rem;
   }
-  
+
   .description {
     margin: 0 auto 2rem;
   }
-  
+
   .cta-button {
-    padding: 1rem 3rem; 
+    padding: 1rem 3rem;
     font-size: 0.95rem;
-    align-self: center; 
+    align-self: center;
   }
 }
 
@@ -525,62 +603,62 @@
   .header {
     padding: 1rem 1.5rem;
   }
-  
+
   .logo {
     font-size: 0.9rem;
   }
-  
+
   .menu-btn {
     font-size: 1.3rem;
   }
-  
+
   .theme-toggle {
     width: 50px;
     height: 28px;
   }
-  
+
   .toggle-slider .toggle-icon {
     width: 26px;
     height: 26px;
   }
-  
+
   .toggle-input:checked + .toggle-slider .toggle-icon {
     transform: translateX(18px);
   }
-  
+
   .heading {
     font-size: 2.5rem;
   }
-  
+
   .description {
     font-size: 0.9rem;
   }
-  
+
   .lamp {
     transform: translateY(0) scale(0.6);
   }
-  
+
   .main-content {
     padding: 1rem;
     gap: 1rem;
   }
-  
+
   .text-section {
     margin-top: -1rem;
   }
-  
+
   .cta-button {
-    padding: 0.9rem 2rem; 
+    padding: 0.9rem 2rem;
     font-size: 0.85rem;
-    width: auto; 
-    max-width: 100%; 
+    width: auto;
+    max-width: 100%;
   }
-  
+
   .sidebar {
     width: 85%;
     left: -85%;
   }
-  
+
   .sidebar-content {
     padding: 3rem 1.5rem;
   }
@@ -590,42 +668,42 @@
   .header {
     padding: 1rem 1rem;
   }
-  
+
   .header-left {
     gap: 1rem;
   }
-  
+
   .logo {
     font-size: 0.85rem;
   }
-  
+
   .bar-1 {
     height: 20px;
   }
-  
+
   .bar-2 {
     height: 15px;
   }
-  
+
   .bar-3 {
     height: 12px;
   }
-  
+
   .heading {
     font-size: 2rem;
   }
-  
+
   .description {
     font-size: 0.85rem;
     max-width: 100%;
   }
-  
+
   .cta-button {
     padding: 0.85rem 1.8rem;
     font-size: 0.8rem;
     letter-spacing: 0.01em;
   }
-  
+
   .sidebar {
     width: 90%;
     left: -90%;
@@ -636,12 +714,12 @@
   .heading {
     font-size: 1.8rem;
   }
-  
+
   .cta-button {
     padding: 0.7rem 1.5rem;
     font-size: 0.8rem;
   }
-  
+
   .lamp {
     transform: translateY(0) scale(0.5);
   }

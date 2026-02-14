@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './LightingHero.css';
 
 const LightingHero = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+
+  // Apply data-theme attribute to root element
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  }, [isDark]);
+
+  const handleToggle = (e) => {
+    setIsDark(e.target.checked);
+  };
 
   return (
     <div className="hero-container">
@@ -24,7 +34,7 @@ const LightingHero = () => {
               <span className="logo-bold">Logo</span>
             </span>
           </div>
-          
+
           <nav className="sidebar-nav">
             <a href="#about" onClick={() => setSidebarOpen(false)}>About</a>
             <a href="#features" onClick={() => setSidebarOpen(false)}>Features</a>
@@ -52,17 +62,17 @@ const LightingHero = () => {
           </button>
           <div className="logo">
             <div className="logo-bars">
-                <span className="bar bar-1"></span>
-                <span className="bar bar-2"></span>
-                <span className="bar bar-3"></span>
+              <span className="bar bar-1"></span>
+              <span className="bar bar-2"></span>
+              <span className="bar bar-3"></span>
             </div>
             <span className="logo-text">
-                <span className="site">Site</span>
-                <span className="logo-bold">Logo</span>
+              <span className="site">Site</span>
+              <span className="logo-bold">Logo</span>
             </span>
           </div>
         </div>
-        
+
         <nav className={`nav ${menuOpen ? 'nav-open' : ''}`}>
           <a href="#about">About</a>
           <a href="#features">Features</a>
@@ -70,13 +80,19 @@ const LightingHero = () => {
           <a href="#gallery">Gallery</a>
           <a href="#team">Team</a>
         </nav>
-        
-        <label className="theme-toggle">
-        <input type="checkbox" className="toggle-input" />
-        <span className="toggle-slider">
-        <span className="toggle-icon"></span>
-        </span>
-</label>
+
+        {/* Toggle: unchecked = light | checked = dark */}
+        <label className="theme-toggle" title={isDark ? 'Switch to light theme' : 'Switch to dark theme'}>
+          <input
+            type="checkbox"
+            className="toggle-input"
+            checked={isDark}
+            onChange={handleToggle}
+          />
+          <span className="toggle-slider">
+            <span className="toggle-icon"></span>
+          </span>
+        </label>
       </header>
 
       {/* Main Content */}
@@ -84,7 +100,7 @@ const LightingHero = () => {
         {/* Left side - Lamp */}
         <div className="lamp-section">
           <div className="lamp">
-           <div className="lamp-cable"></div>
+            <div className="lamp-cable"></div>
             <div className="lamp-hook"></div>
             <div className="lamp-top"></div>
             <div className="lamp-light"></div>
